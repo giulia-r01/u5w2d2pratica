@@ -38,6 +38,7 @@ public class AutoreService {
         autoreDaCercare.setCognome(autore.getCognome());
         autoreDaCercare.setEmail(autore.getEmail());
         autoreDaCercare.setDataDiNascita(autore.getDataDiNascita());
+        autoreDaCercare.setAvatar("https://ui-avatars.com/api/?name=" + autore.getNome() + "+" + autore.getCognome());
 
         return autoreDaCercare;
     }
