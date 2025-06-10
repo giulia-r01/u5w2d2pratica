@@ -1,0 +1,52 @@
+package it.epicode.u5w2d2pratica.service;
+
+import it.epicode.u5w2d2pratica.exeption.PostNotFoundExeption;
+import it.epicode.u5w2d2pratica.model.AutoreBlog;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+@Service
+public class AutoreService {
+    private List<AutoreBlog> autori = new ArrayList<>();
+
+    public AutoreBlog saveAutore(AutoreBlog autore){
+        autore.setId(new Random().nextLong(1,3000));
+        autore.setAvatar("https://ui-avatars.com/api/?name=" + autore.getNome() + "+" + autore.getCognome());
+        autori.add(autore);
+        return autore;
+    }
+
+
+    public AutoreBlog getAutore(Long id) throws PostNotFoundExeption {
+        return autori.stream().filter(autore -> autore.getId().equals(id)).
+                findFirst().orElseThrow(()->new PostNotFoundExeption("Non esiste un autore con id "+id));
+    }
+
+
+    public List<AutoreBlog> getAllAutori(){
+        return autori;
+    }
+
+
+    public AutoreBlog updateAutore(Long id, AutoreBlog autore) throws PostNotFoundExeption {
+        AutoreBlog autoreDaCercare = getAutore(id);
+
+        autoreDaCercare.setNome(autore.getNome());
+        autoreDaCercare.setCognome(autore.getCognome());
+        autoreDaCercare.setEmail(autore.getEmail());
+        autoreDaCercare.setDataDiNascita(autore.getDataDiNascita());
+
+        return autoreDaCercare;
+    }
+
+
+    public void deleteAutore(Long id) throws PostNotFoundExeption {
+        AutoreBlog autoreDaEliminare = getAutore(id);
+
+        autori.remove(autoreDaEliminare);
+    }
+
+}
