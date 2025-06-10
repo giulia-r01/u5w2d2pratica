@@ -1,6 +1,6 @@
 package it.epicode.u5w2d2pratica.service;
 
-import it.epicode.u5w2d2pratica.exeption.PostNotFoundExeption;
+import it.epicode.u5w2d2pratica.exeption.NotFoundExeption;
 import it.epicode.u5w2d2pratica.model.AutoreBlog;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +20,9 @@ public class AutoreService {
     }
 
 
-    public AutoreBlog getAutore(Long id) throws PostNotFoundExeption {
+    public AutoreBlog getAutore(Long id) throws NotFoundExeption {
         return autori.stream().filter(autore -> autore.getId().equals(id)).
-                findFirst().orElseThrow(()->new PostNotFoundExeption("Non esiste un autore con id "+id));
+                findFirst().orElseThrow(()->new NotFoundExeption("Non esiste un autore con id "+id));
     }
 
 
@@ -31,7 +31,7 @@ public class AutoreService {
     }
 
 
-    public AutoreBlog updateAutore(Long id, AutoreBlog autore) throws PostNotFoundExeption {
+    public AutoreBlog updateAutore(Long id, AutoreBlog autore) throws NotFoundExeption {
         AutoreBlog autoreDaCercare = getAutore(id);
 
         autoreDaCercare.setNome(autore.getNome());
@@ -43,7 +43,7 @@ public class AutoreService {
     }
 
 
-    public void deleteAutore(Long id) throws PostNotFoundExeption {
+    public void deleteAutore(Long id) throws NotFoundExeption {
         AutoreBlog autoreDaEliminare = getAutore(id);
 
         autori.remove(autoreDaEliminare);

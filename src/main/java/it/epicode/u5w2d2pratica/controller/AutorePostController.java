@@ -1,6 +1,6 @@
 package it.epicode.u5w2d2pratica.controller;
 
-import it.epicode.u5w2d2pratica.exeption.PostNotFoundExeption;
+import it.epicode.u5w2d2pratica.exeption.NotFoundExeption;
 import it.epicode.u5w2d2pratica.model.AutoreBlog;
 import it.epicode.u5w2d2pratica.service.AutoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AutorePostController {
     }
 
     @GetMapping("/autori/{id}")
-    public AutoreBlog getAutore(@PathVariable Long id) throws PostNotFoundExeption {
+    public AutoreBlog getAutore(@PathVariable Long id) throws NotFoundExeption {
         return autoreService.getAutore(id);
     }
 
@@ -33,13 +33,13 @@ public class AutorePostController {
 
     @PutMapping("/autori/{id}")
     public AutoreBlog updateAutore(@PathVariable Long id, @RequestBody AutoreBlog autore)
-            throws PostNotFoundExeption {
+            throws NotFoundExeption {
         return autoreService.updateAutore(id, autore);
     }
 
     @DeleteMapping("/autori/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAutore(@PathVariable Long id) throws PostNotFoundExeption {
+    public void deleteAutore(@PathVariable Long id) throws NotFoundExeption {
         autoreService.deleteAutore(id);
     }
 }

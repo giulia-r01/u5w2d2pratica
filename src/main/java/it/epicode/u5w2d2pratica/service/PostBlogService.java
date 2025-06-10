@@ -1,6 +1,6 @@
 package it.epicode.u5w2d2pratica.service;
 
-import it.epicode.u5w2d2pratica.exeption.PostNotFoundExeption;
+import it.epicode.u5w2d2pratica.exeption.NotFoundExeption;
 import it.epicode.u5w2d2pratica.model.PostBlog;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +21,9 @@ public class PostBlogService {
     }
 
     //get singolo post
-    public PostBlog getPostBlog(long id) throws PostNotFoundExeption {
+    public PostBlog getPostBlog(long id) throws NotFoundExeption {
         return postBlogs.stream().filter(postBlog -> postBlog.getId().equals(id))
-                .findFirst().orElseThrow(()-> new PostNotFoundExeption("Non esiste un post con id "+id));
+                .findFirst().orElseThrow(()-> new NotFoundExeption("Non esiste un post con id "+id));
     }
 
     //get tutti i posts
@@ -31,7 +31,7 @@ public class PostBlogService {
         return postBlogs;
     }
 
-    public PostBlog updatePostBlog(long id, PostBlog postBlog) throws PostNotFoundExeption {
+    public PostBlog updatePostBlog(long id, PostBlog postBlog) throws NotFoundExeption {
         PostBlog postDaCercare = getPostBlog(id);
 
         postDaCercare.setTitolo(postBlog.getTitolo());
@@ -42,7 +42,7 @@ public class PostBlogService {
         return postDaCercare;
     }
 
-    public void deletePostBlog(Long id) throws PostNotFoundExeption {
+    public void deletePostBlog(Long id) throws NotFoundExeption {
         PostBlog postDaRimuovere = getPostBlog(id);
 
         postBlogs.remove(postDaRimuovere);
